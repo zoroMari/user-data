@@ -1,15 +1,18 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { AboutComponent } from "./about/about.component";
-import { UsersComponent } from "./users/users.component";
 
 const routes: Routes = [
-  // { path: '', redirectTo: 'index', pathMatch: 'full' },
-  { path: 'index', component: UsersComponent },
-  { path: 'about', component: AboutComponent },
-  { path: '**', redirectTo: '' },
+  { path: '', redirectTo: 'index', pathMatch: 'full' },
+  {
+    path: '',
+    loadChildren: () => import('./index/index.module').then(m => m.IndexModule),
+  },
+  {
+    path: '',
+    loadChildren: () => import('./about/about.module').then(m => m.AboutModule),
+  },
+  { path: '**', redirectTo: 'index' },
 ]
-
 
 @NgModule({
   imports: [

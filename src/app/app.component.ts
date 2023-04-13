@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'user-data';
-  public collapsed: boolean = true;
+  // public collapsed: boolean = true;
 
 }
