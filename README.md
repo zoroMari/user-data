@@ -1,8 +1,8 @@
 # UserData
 
-See demo by [this link](https://zoromari.github.io/user-data/about) 
+See demo by [this link](https://zoromari.github.io/user-data) 
 
-#### Functionality
+#### Functionality:
 
 This demo application provides information about randomly generated users in a handy table.
 
