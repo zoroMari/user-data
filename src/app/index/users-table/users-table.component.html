@@ -1,82 +1,77 @@
-<div class="container-fluid my-4 px-xl-0">
+<div class="container-xl my-4 px-2">
 
-  <div class="options">
-    <div class="caption">Options</div>
-    <div class="option-container">
-      <div class="option">
-        <dx-select-box
-          id="displayModes"
-          displayExpr="text"
-          valueExpr="value"
-          [items]="displayModes"
-          [(value)]="displayMode"
-        >
-        </dx-select-box>
-      </div>
-      <div class="option">
-      </div>
-      <div class="option">
-        <dx-check-box id="showInfo" text="Show Info Text" [(value)]="showInfo">
-        </dx-check-box>
-      </div>
-      <div class="option">
-        <dx-check-box
-          id="showNavButtons"
-          text="Show Navigation Buttons"
-          [disabled]="isCompactMode"
-          [(value)]="showNavButtons"
-        >
-        </dx-check-box>
-      </div>
-    </div>
-  </div>
+  <div class="lds-dual-ring container my-auto" *ngIf="!isFetched"></div>
 
   <dx-data-grid
+    *ngIf="isFetched"
     id="gridContainer"
-    [dataSource]="this.userService.users"
+    [dataSource]="users"
     keyExpr="id"
     [showBorders]="true"
     class="my-4"
   >
+
+    <dxo-sorting mode="multiple"></dxo-sorting>
+    <dxo-search-panel
+      [visible]="true"
+      [width]="240"
+      placeholder="Search..."
+    >
+    </dxo-search-panel>
     <dxo-scrolling rowRenderingMode="virtual"> </dxo-scrolling>
     <dxo-paging [pageSize]="25"> </dxo-paging>
     <dxo-pager
       [visible]="true"
-      [showInfo]="showInfo"
-      [showNavigationButtons]="showNavButtons"
+      [showInfo]="true"
+      [showNavigationButtons]="true"
     >
     </dxo-pager>
 
-    <!-- <dxo-selection mode="single"></dxo-selection> -->
     <dxo-master-detail [enabled]="true" template="detail"></dxo-master-detail>
 
-    <dxi-column
-      dataField="picture"
-      caption="Photo"
-      [width]="100"
-      [allowFiltering]="false"
-      [allowSorting]="false"
-      cellTemplate="cellTemplate"
+    <ng-container
+      *ngFor="let col of userColumns"
     >
-    </dxi-column>
-    <dxi-column dataField="fullName" caption="Full name"></dxi-column>
-    <dxi-column dataField="gender"></dxi-column>
-    <dxi-column dataField="phone"></dxi-column>
+      <dxi-column
+        *ngIf="col === 'picture'"
+        [dataField]="col"
+        [caption]="addCaption(col)"
+        [width]="100"
+        [allowFiltering]="false"
+        [allowSorting]="false"
+        cellTemplate="cellTemplate"
+      >
+      </dxi-column>
+      <dxi-column
+        *ngIf="col !== 'picture'"
+        [caption]="addCaption(col)"
+        [dataField]="col"
+      >
+      </dxi-column>
+    </ng-container>
 
     <div *dxTemplate="let data of 'cellTemplate'">
       <img [src]="data.value" />
     </div>
 
     <div *dxTemplate="let user of 'detail'">
-      <div class="master-detail-caption mb-2">
-        <b>More information about {{ user.data.fullName }}:</b>
+      <div class="userInfo container ms-0">
+        <div class="row row-cols-1 row-cols-md-auto" *ngIf="isDetails">
+          <div
+            *ngFor="let info of userDatailInfo"
+            class="col"
+          >
+            <p class="mb-0">
+              <span class="me-2 detailsTitle">{{ info[0] | uppercase }}{{ info.slice(1) }}:</span>
+              <span>{{ user.data[info] }}</span>
+            </p>
+          </div>
+        </div>
+        <div *ngIf="!isDetails" class="row noDetails">
+          There is no information about {{ user.data.fullName }}
+        </div>
       </div>
-
-      <app-user-detail [key]="user.key"></app-user-detail>
-
     </div>
 
   </dx-data-grid>
 </div>
-
-<!-- aria-selected="false"; -->

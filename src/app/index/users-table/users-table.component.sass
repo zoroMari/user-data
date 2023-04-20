@@ -1,26 +1,33 @@
 #gridContainer
   max-height: 800px
 
-.options
-  margin-top: 20px
-  padding: 20px
-  background-color: rgba(191, 191, 191, 0.15)
-  position: relative
+.noDetails
+  color: #959595
 
-.caption
-  font-size: 18px
-  font-weight: 500
+.detailsTitle
+  color: #959595
 
-.option-container
-  display: flex
-  margin: 0 auto
-  justify-content: space-between
+.lds-dual-ring
+  display: block
+  width: 80px
+  height: 80px
 
-.option
-  margin-top: 10px
-  display: flex
-  align-items: center
+.lds-dual-ring:after
+  content: " "
+  display: block
+  width: 64px
+  height: 64px
+  margin: 8px
+  border-radius: 50%
+  border: 6px solid #959595
+  border-color: #959595 transparent #959595 transparent
+  animation: lds-dual-ring 1.2s linear infinite
 
-.option-caption
-  white-space: nowrap
-  margin: 0 8px
+@keyframes lds-dual-ring
+  0%
+    transform: rotate(0deg)
+
+  100%
+    transform: rotate(360deg)
+
+
