@@ -7,11 +7,11 @@ export class UserFilterService {
   private _key = 'filterValues';
 
   public filterValues = new BehaviorSubject<IFilter>({
-    gender: false,
-    city: false,
-    street: false,
-    email: false,
-    phone: false,
+    gender: true,
+    city: true,
+    street: true,
+    email: true,
+    phone: true,
   })
 
   public changeFilterValues(value: IFilter): void {
