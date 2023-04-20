@@ -23,6 +23,12 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "sass",
+            "allowedCommonJsDependencies": [
+              "jszip",
+              "devexpress-diagram",
+              "devexpress-gantt",
+              "devextreme-quill"
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -39,8 +45,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -102,6 +108,9 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
